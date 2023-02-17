@@ -1,72 +1,56 @@
 import React, { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
+import user from "../../../Assests/icons/user.png";
+import MenuItem from "./component/MenuItem";
+import home from "../../../Assests/icons/home.png";
+import car from "../../../Assests/icons/car.png";
+import entry from "../../../Assests/icons/entry.png";
+import reduceCost from "../../../Assests/icons/reduceCost.png";
+import sun from "../../../Assests/icons/sun.png";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
+  const menus = [
+    { title: "Home", logo: home },
+    { title: "Cars", logo: car },
+    { title: "Entry", logo: entry },
+    { title: "Cost", logo: reduceCost },
+    { title: "Mode", logo: sun },
+  ];
   return (
     <div
       className={`${
-        open ? "w-72" : "w-16"
-      } h-screen bg-dark-purple text-white relative duration-300 p-5 pt-12`}
+        open ? "w-72" : "w-20"
+      } h-screen bg-gradient-to-tr from-[#2cc791] to-[#00B5E0] p-5 pt-8 text-white relative duration-300 `}
     >
+      {/* this span is for floating arrow to open or close the menu */}
       <span
-        className={`absolute cursor-pointer rounded-full -right-3 top-4 w-7 border-2 border-dark-purple bg-white text-black p-1 ${
+        className={`absolute cursor-pointer rounded-full -right-3 top-4 w-7 border-2 border-[#00EA99] bg-white text-[#00B5E0] p-1 ${
           !open && "rotate-180"
         }`}
         onClick={() => setOpen(!open)}
       >
         <FiArrowLeft />
       </span>
+      {/* Profile section in sidebar */}
       <div className="flex items-center gap-x-4">
-        <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
-          <svg
-            class="absolute w-12 h-12 text-gray-400 -left-1"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </div>
-        <div>
-          <h2
-            className={`font-semibold font-serif origin-left duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Meraj Faizan
-          </h2>
-          <h4 className={`origin-left duration-300 ${!open && "scale-0"}`}>
-            Role: owner
-          </h4>
+        <img
+          className={`bg-white cursor-pointer border-2 border-[#00ea98] duration-500 p-1 ${
+            open && "w-10 h-10"
+          } rounded-full`}
+          src={user}
+          alt="user"
+        />
+        <div className={`origin-left duration-500 ${!open && "scale-0"}`}>
+          <h2 className={`font-medium text-xl font-serif `}>Meraj Faizan</h2>
+          <h4>Role: owner</h4>
         </div>
       </div>
+      {/* Menus of sidebar */}
       <ul className="pt-6">
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          Home
-        </li>
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          Cars
-        </li>
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          Entry
-        </li>
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          Garage Cost
-        </li>
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          User
-        </li>
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          Dark Mode
-        </li>
-        <li className="className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
-          Logout
-        </li>
+        {menus.map((menu, idx) => {
+          return <MenuItem key={idx} menu={menu} menuStatus={open} />;
+        })}
       </ul>
     </div>
   );
